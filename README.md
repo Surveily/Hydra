@@ -1,10 +1,6 @@
-## Obsolete
-
-[This repository will soon be replaced by a .NET Standard 2.1 version, courtesy of Surveily Sp. z o.o.](https://www.nuget.org/packages?q=surveily.hydra)
-
 ## Hydra
  
- [![NuGet](https://img.shields.io/nuget/v/Mailcloud.Hydra.Core.svg)](https://www.nuget.org/packages/Mailcloud.Hydra.Core/)  [![NuGet](https://img.shields.io/nuget/v/Mailcloud.Hydra.Events.svg)](https://www.nuget.org/packages/Mailcloud.Hydra.Events/) [![Join the chat at https://gitter.im/Mailcloud/Hydra](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Mailcloud/Hydra?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+ [![NuGet](https://img.shields.io/nuget/v/Mailcloud.Hydra.Core.svg)](https://www.nuget.org/packages/Surveily.Hydra.Core/)  [![NuGet](https://img.shields.io/nuget/v/Mailcloud.Hydra.Events.svg)](https://www.nuget.org/packages/Surveily.Hydra.Events/) [![Join the chat at https://gitter.im/Mailcloud/Hydra](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Surveily/Hydra?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 A set of components to take the most advantage of performance and capacity of Azure Storage. 
 
@@ -12,7 +8,7 @@ Hydra is Azure Subscription agnostic, which means it is possible to use Storage 
 
 ## Overview
 
-![Link](https://github.com/Mailcloud/Hydra/blob/master/doc/architecture.png)
+![Link](https://github.com/Surveily/Hydra/blob/master/doc/architecture.png)
 
 ## Hydra.Core
 
