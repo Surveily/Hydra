@@ -1,0 +1,47 @@
+// See https://aka.ms/vscode-remote/containers for the
+// documentation about the devcontainer.json format
+{
+	"name": "surveily-hydra-developer",
+	"image": "mcr.microsoft.com/dotnet/core/sdk:3.0-bionic",
+	"runArgs": [
+		"--name",
+		"surveily-hydra-developer",
+		"-v",
+		"${env:HOME}${env:USERPROFILE}/.ssh:/root/.ssh-localhost:ro"
+	],
+	"postCreateCommand": "mkdir -p ~/.ssh && cp -r ~/.ssh-localhost/* ~/.ssh && chmod 700 ~/.ssh && chmod 600 ~/.ssh/*",
+	"appPort": [],
+	"extensions": [
+		"kosunix.guid",
+		"ms-vscode.csharp",
+		"k--kato.docomment",
+		"redhat.vscode-yaml",
+		"ms-vscode.powershell",
+		"mikeburgh.xml-format",
+		"donjayamanne.githistory",
+		"jchannon.csharpextensions",
+		"wayou.vscode-todo-highlight",
+		"ms-azuretools.vscode-docker"
+	],
+	"settings": {
+		"csharp.referencesCodeLens.enabled": false,
+		"extensions.autoUpdate": false,
+		"omnisharp.useGlobalMono": "never",
+		"dotnet-test-explorer.autoWatch": false,
+		"dotnet-test-explorer.autoExpandTree": true,
+		"dotnet-test-explorer.testProjectPath": "src",
+		"csharpextensions.privateMemberPrefix": "_",
+		"csharpextensions.useThisForCtorAssignments": false,
+		"files.exclude": {
+			"**/CVS": true,
+			"**/bin": true,
+			"**/obj": true,
+			"**/.hg": true,
+			"**/.svn": true,
+			"**/.git": true,
+			"**/.DS_Store": true,
+			"**/BenchmarkDotNet.Artifacts": true
+		}
+	},
+	"shutdownAction": "stopContainer"
+}
