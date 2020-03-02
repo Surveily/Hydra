@@ -1,0 +1,74 @@
+{
+  "format": 1,
+  "restore": {
+    "/workspaces/Platform/src/VU.Platform.Hydra/VU.Platform.Hydra.csproj": {}
+  },
+  "projects": {
+    "/workspaces/Platform/src/VU.Platform.Hydra/VU.Platform.Hydra.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/workspaces/Platform/src/VU.Platform.Hydra/VU.Platform.Hydra.csproj",
+        "projectName": "VU.Platform.Hydra",
+        "projectPath": "/workspaces/Platform/src/VU.Platform.Hydra/VU.Platform.Hydra.csproj",
+        "packagesPath": "/root/.nuget/packages/",
+        "outputPath": "/workspaces/Platform/src/VU.Platform.Hydra/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/workspaces/Platform/src/nuget.config",
+          "/root/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {},
+          "https://pkgs.dev.azure.com/varunit/_packaging/Platform/nuget/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "dependencies": {
+            "StyleCop.Analyzers": {
+              "target": "Package",
+              "version": "[1.1.118, )"
+            },
+            "WindowsAzure.Storage": {
+              "target": "Package",
+              "version": "[9.3.3, )"
+            },
+            "murmurhash": {
+              "target": "Package",
+              "version": "[1.0.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.0.102/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

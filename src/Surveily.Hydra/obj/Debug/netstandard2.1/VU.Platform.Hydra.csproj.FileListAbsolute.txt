@@ -1,0 +1,8 @@
+/workspaces/Platform/src/VU.Platform.Hydra/bin/Debug/netstandard2.1/VU.Platform.Hydra.deps.json
+/workspaces/Platform/src/VU.Platform.Hydra/bin/Debug/netstandard2.1/VU.Platform.Hydra.dll
+/workspaces/Platform/src/VU.Platform.Hydra/bin/Debug/netstandard2.1/VU.Platform.Hydra.pdb
+/workspaces/Platform/src/VU.Platform.Hydra/obj/Debug/netstandard2.1/VU.Platform.Hydra.csprojAssemblyReference.cache
+/workspaces/Platform/src/VU.Platform.Hydra/obj/Debug/netstandard2.1/VU.Platform.Hydra.AssemblyInfoInputs.cache
+/workspaces/Platform/src/VU.Platform.Hydra/obj/Debug/netstandard2.1/VU.Platform.Hydra.AssemblyInfo.cs
+/workspaces/Platform/src/VU.Platform.Hydra/obj/Debug/netstandard2.1/VU.Platform.Hydra.dll
+/workspaces/Platform/src/VU.Platform.Hydra/obj/Debug/netstandard2.1/VU.Platform.Hydra.pdb
