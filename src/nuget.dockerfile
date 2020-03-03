@@ -15,9 +15,9 @@ RUN dotnet test src --no-build --no-restore
 
 # Create Packages
 RUN mkdir nuget
-RUN dotnet pack --no-build --no-restore -c Release -p:PackageVersion=1.2.0-${version} -o /app/src/nuget/ Surveily.Hydra.Core/Surveily.Hydra.Core.csproj
-RUN dotnet pack --no-build --no-restore -c Release -p:PackageVersion=1.2.0-${version} -o /app/src/nuget/ Surveily.Hydra.Events/Surveily.Hydra.Events.csproj
+RUN dotnet pack --no-build --no-restore -c Release -p:PackageVersion=2.0-${version} -o /app/src/nuget/ Surveily.Hydra.Core/Surveily.Hydra.Core.csproj
+RUN dotnet pack --no-build --no-restore -c Release -p:PackageVersion=2.0-${version} -o /app/src/nuget/ Surveily.Hydra.Events/Surveily.Hydra.Events.csproj
 
 # Publish Packages
-RUN dotnet nuget push -s ${url} -k ${key} /app/src/nuget/Surveily.Hydra.Core.1.2.0-${version}.nupkg
-RUN dotnet nuget push -s ${url} -k ${key} /app/src/nuget/Surveily.Hydra.Events.1.2.0-${version}.nupkg
+RUN dotnet nuget push -s ${url} -k ${key} /app/src/nuget/Surveily.Hydra.Core.2.0-${version}.nupkg
+RUN dotnet nuget push -s ${url} -k ${key} /app/src/nuget/Surveily.Hydra.Events.2.0-${version}.nupkg
