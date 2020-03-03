@@ -1,8 +1,0 @@
-/workspaces/Surveily.Hydra/src/Surveily.Hydra.Tests/bin/Debug/netstandard2.0/Surveily.Hydra.Tests.deps.json
-/workspaces/Surveily.Hydra/src/Surveily.Hydra.Tests/bin/Debug/netstandard2.0/Surveily.Hydra.Tests.dll
-/workspaces/Surveily.Hydra/src/Surveily.Hydra.Tests/bin/Debug/netstandard2.0/Surveily.Hydra.Tests.pdb
-/workspaces/Surveily.Hydra/src/Surveily.Hydra.Tests/obj/Debug/netstandard2.0/Surveily.Hydra.Tests.csprojAssemblyReference.cache
-/workspaces/Surveily.Hydra/src/Surveily.Hydra.Tests/obj/Debug/netstandard2.0/Surveily.Hydra.Tests.AssemblyInfoInputs.cache
-/workspaces/Surveily.Hydra/src/Surveily.Hydra.Tests/obj/Debug/netstandard2.0/Surveily.Hydra.Tests.AssemblyInfo.cs
-/workspaces/Surveily.Hydra/src/Surveily.Hydra.Tests/obj/Debug/netstandard2.0/Surveily.Hydra.Tests.dll
-/workspaces/Surveily.Hydra/src/Surveily.Hydra.Tests/obj/Debug/netstandard2.0/Surveily.Hydra.Tests.pdb
