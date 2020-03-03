@@ -1,0 +1,8 @@
+/workspaces/Surveily.Hydra/src/Surveily.Hydra.Events/bin/Debug/netstandard2.0/Surveily.Hydra.Events.deps.json
+/workspaces/Surveily.Hydra/src/Surveily.Hydra.Events/bin/Debug/netstandard2.0/Surveily.Hydra.Events.dll
+/workspaces/Surveily.Hydra/src/Surveily.Hydra.Events/bin/Debug/netstandard2.0/Surveily.Hydra.Events.pdb
+/workspaces/Surveily.Hydra/src/Surveily.Hydra.Events/obj/Debug/netstandard2.0/Surveily.Hydra.Events.csprojAssemblyReference.cache
+/workspaces/Surveily.Hydra/src/Surveily.Hydra.Events/obj/Debug/netstandard2.0/Surveily.Hydra.Events.AssemblyInfoInputs.cache
+/workspaces/Surveily.Hydra/src/Surveily.Hydra.Events/obj/Debug/netstandard2.0/Surveily.Hydra.Events.AssemblyInfo.cs
+/workspaces/Surveily.Hydra/src/Surveily.Hydra.Events/obj/Debug/netstandard2.0/Surveily.Hydra.Events.dll
+/workspaces/Surveily.Hydra/src/Surveily.Hydra.Events/obj/Debug/netstandard2.0/Surveily.Hydra.Events.pdb

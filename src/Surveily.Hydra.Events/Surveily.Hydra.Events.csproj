@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <IsPackable>true</IsPackable>
+    </PropertyGroup>
+    <PropertyGroup>
+        <PackageId>Surveily.Hydra.Events</PackageId>
+        <PackageVersion>1.0</PackageVersion>
+        <Authors>Surveily Spółka z Ograniczoną Odpowiedzialnością</Authors>
+        <Description>Event Sourcing and Sharding library for Azure Storage optimised for multithreading.</Description>
+        <Copyright>Copyright © Surveily sp. z o.o.</Copyright>
+    </PropertyGroup>
+    <PropertyGroup>
+        <CodeAnalysisRuleSet>..\stylecop.ruleset</CodeAnalysisRuleSet>
+    </PropertyGroup>
+    <ItemGroup>
+        <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Surveily.Hydra.Core\Surveily.Hydra.Core.csproj" />
+    </ItemGroup>
+</Project>

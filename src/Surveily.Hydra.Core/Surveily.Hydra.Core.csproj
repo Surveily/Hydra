@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <IsPackable>true</IsPackable>
+    </PropertyGroup>
+    <PropertyGroup>
+        <PackageId>Surveily.Hydra.Core</PackageId>
+        <PackageVersion>1.0</PackageVersion>
+        <Authors>Surveily Spółka z Ograniczoną Odpowiedzialnością</Authors>
+        <Description>Sharding library for Azure Storage optimised for multithreading.</Description>
+        <Copyright>Copyright © Surveily sp. z o.o.</Copyright>
+    </PropertyGroup>
+    <PropertyGroup>
+        <CodeAnalysisRuleSet>..\stylecop.ruleset</CodeAnalysisRuleSet>
+    </PropertyGroup>
+    <ItemGroup>
+        <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" />
+        <PackageReference Include="murmurhash" Version="1.0.2" />
+        <PackageReference Include="WindowsAzure.Storage" Version="9.3.3" />
+    </ItemGroup>
+</Project>

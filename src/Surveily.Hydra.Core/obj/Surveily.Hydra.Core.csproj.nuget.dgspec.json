@@ -1,0 +1,72 @@
+{
+  "format": 1,
+  "restore": {
+    "/workspaces/Surveily.Hydra/src/Surveily.Hydra.Core/Surveily.Hydra.Core.csproj": {}
+  },
+  "projects": {
+    "/workspaces/Surveily.Hydra/src/Surveily.Hydra.Core/Surveily.Hydra.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/workspaces/Surveily.Hydra/src/Surveily.Hydra.Core/Surveily.Hydra.Core.csproj",
+        "projectName": "Surveily.Hydra.Core",
+        "projectPath": "/workspaces/Surveily.Hydra/src/Surveily.Hydra.Core/Surveily.Hydra.Core.csproj",
+        "packagesPath": "/root/.nuget/packages/",
+        "outputPath": "/workspaces/Surveily.Hydra/src/Surveily.Hydra.Core/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/root/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "dependencies": {
+            "StyleCop.Analyzers": {
+              "target": "Package",
+              "version": "[1.1.118, )"
+            },
+            "WindowsAzure.Storage": {
+              "target": "Package",
+              "version": "[9.3.3, )"
+            },
+            "murmurhash": {
+              "target": "Package",
+              "version": "[1.0.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.0.103/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
