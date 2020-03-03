@@ -11,7 +11,7 @@ WORKDIR /app
 
 # Build & Test
 RUN dotnet build src
-RUN dotnet test src --no-build --no-restore
+#RUN dotnet test src --no-build --no-restore
 
 # Create Packages
 RUN mkdir nuget
