@@ -8,7 +8,7 @@
         <PackageId>Surveily.Hydra.Events</PackageId>
         <PackageVersion>1.0</PackageVersion>
         <PackageIconUrl></PackageIconUrl>
-        <PackageLicenseFile>../../LICENSE.md</PackageLicenseFile>
+        <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
         <Authors>Surveily Spółka z Ograniczoną Odpowiedzialnością</Authors>
         <Description>Event Sourcing and Sharding library for Azure Storage optimised for multithreading.</Description>
         <Copyright>Copyright © Surveily sp. z o.o.</Copyright>
