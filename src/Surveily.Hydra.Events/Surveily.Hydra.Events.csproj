@@ -7,9 +7,14 @@
     <PropertyGroup>
         <PackageId>Surveily.Hydra.Events</PackageId>
         <PackageVersion>1.0</PackageVersion>
+        <PackageIconUrl></PackageIconUrl>
+        <PackageLicenseFile>../../LICENSE.md</PackageLicenseFile>
         <Authors>Surveily Spółka z Ograniczoną Odpowiedzialnością</Authors>
         <Description>Event Sourcing and Sharding library for Azure Storage optimised for multithreading.</Description>
         <Copyright>Copyright © Surveily sp. z o.o.</Copyright>
+        <RepositoryUrl>https://github.com/Surveily/Hydra</RepositoryUrl>
+        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+        <PackageTags>Azure;Table;Storage;Shard;Sharding</PackageTags>
     </PropertyGroup>
     <PropertyGroup>
         <CodeAnalysisRuleSet>..\stylecop.ruleset</CodeAnalysisRuleSet>
