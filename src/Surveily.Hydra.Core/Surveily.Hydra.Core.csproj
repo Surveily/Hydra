@@ -7,7 +7,7 @@
     <PropertyGroup>
         <PackageId>Surveily.Hydra.Core</PackageId>
         <PackageVersion>1.0</PackageVersion>
-        <PackageIconUrl></PackageIconUrl>
+        <PackageIconUrl>https://avatars1.githubusercontent.com/u/61705681?s=200</PackageIconUrl>
         <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
         <Authors>Surveily Spółka z Ograniczoną Odpowiedzialnością</Authors>
         <Description>Sharding library for Azure Storage optimised for multithreading.</Description>
