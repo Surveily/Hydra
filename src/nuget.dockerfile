@@ -3,6 +3,9 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.0-bionic
 # Build Arguments
 ARG version
 ARG key
+ARG connection
+
+ENV HYDRATEST=${connection}
 
 # Set Project Directory
 WORKDIR /app
@@ -19,7 +22,7 @@ ADD LICENSE.md .
 
 # Build & Test
 RUN dotnet build src -c Release --no-restore
-#RUN dotnet test src -c Release --no-build --no-restore
+RUN dotnet test src -c Release --no-build --no-restore
 
 # Create Packages
 RUN mkdir nuget
