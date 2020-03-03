@@ -7,7 +7,7 @@ ARG key
 
 # Add Source Files
 ADD src /app/src
-WORKDIR /app/src
+WORKDIR /app
 
 # Build & Test
 RUN dotnet build src
