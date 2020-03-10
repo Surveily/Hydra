@@ -5,12 +5,10 @@ ARG version
 ARG key
 
 # Create Packages
-RUN mkdir nuget
+RUN mkdir /app/src/nuget
 RUN dotnet pack --no-build --no-restore -c Release -p:PackageVersion=${version} -o /app/src/nuget/ src/Surveily.Hydra.Core/Surveily.Hydra.Core.csproj
 RUN dotnet pack --no-build --no-restore -c Release -p:PackageVersion=${version} -o /app/src/nuget/ src/Surveily.Hydra.Events/Surveily.Hydra.Events.csproj
 RUN dotnet pack --no-build --no-restore -c Release -p:PackageVersion=${version} -o /app/src/nuget/ src/Surveily.Hydra.Tools/Surveily.Hydra.Tools.csproj
-
-RUN ls /app/src/nuget
 
 # Publish Packages
 RUN dotnet nuget push -s nuget.org -k ${key} /app/src/nuget/Surveily.Hydra.Core.${version}.nupkg
