@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using CommandLine;
 using Hydra.Core;
 using Hydra.Core.Sharding;
+using Hydra.Tools.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

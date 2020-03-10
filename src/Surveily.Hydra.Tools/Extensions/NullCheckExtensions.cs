@@ -4,7 +4,7 @@
 
 using System;
 
-namespace Hydra.Tools
+namespace Hydra.Tools.Extensions
 {
     internal static class NullCheckExtensions
     {

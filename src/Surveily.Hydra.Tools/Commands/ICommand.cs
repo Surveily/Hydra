@@ -6,7 +6,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Hydra.Tools
+namespace Hydra.Tools.Commands
 {
     internal interface ICommand
     {

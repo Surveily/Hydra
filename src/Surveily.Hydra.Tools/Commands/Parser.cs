@@ -8,8 +8,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CommandLine;
+using Hydra.Tools.Extensions;
 
-namespace Hydra.Tools
+namespace Hydra.Tools.Commands
 {
     internal class Parser
     {
