@@ -15,22 +15,16 @@ using Polly.Retry;
 
 namespace Hydra.Tools.Commands
 {
-    internal class CopyCommand : ICommand<CopyOptions>
+    [Verb("cp")]
+    internal class CopyOptions : IOptions
     {
-        private readonly ILogger _logger;
+        [Option('s', "source", Required = true, HelpText = "Accounts to read from.")]
+        public IEnumerable<string> Source { get; set; }
 
-        public CopyCommand(ILoggerFactory loggerFactory)
-        {
-            _logger = loggerFactory.CreateLogger<CopyCommand>();
-        }
+        [Option('t', "target", Required = true, HelpText = "Accounts to write to.")]
+        public IEnumerable<string> Target { get; set; }
 
-        public CopyOptions Options { get; set; }
-
-        public Type OptionsType => typeof(CopyOptions);
-
-        public async Task RunAsync()
-        {
-            await Task.Delay(1000);
-        }
+        [Option('j', "shard", Required = true, HelpText = "Use Jump Sharding.")]
+        public bool Sharding { get; set; }
     }
 }
