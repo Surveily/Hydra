@@ -17,7 +17,7 @@ using Polly.Retry;
 
 namespace Hydra.Tools.Commands
 {
-    [Verb("cp", HelpText = "CAREFUL! If you specify multiple sources or targets, you will use Hydra Jump Sharding. Otherwise simple copy.")]
+    [Verb("cp", HelpText = "Copies data between Azure Storage Accounts. WARNING! If you specify multiple sources or targets, you will use Hydra Jump Sharding. Very useful for re-sharding data.")]
     internal class CopyOptions : IOptions
     {
         [Option('s', "source", Required = true, HelpText = "Accounts to read from.")]

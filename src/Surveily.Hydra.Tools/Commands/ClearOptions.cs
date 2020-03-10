@@ -17,7 +17,7 @@ using Polly.Retry;
 
 namespace Hydra.Tools.Commands
 {
-    [Verb("rm", HelpText = "Remove all objects from target storage accounts")]
+    [Verb("rm", HelpText = "Remove all objects from target storage accounts.")]
     internal class ClearOptions : IOptions
     {
         [Option('t', "target", Required = true, HelpText = "Accounts to write to.")]

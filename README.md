@@ -59,9 +59,9 @@ $ hydra --help
 Surveily.Hydra.Tools 1.0.0
 Copyright © Surveily sp. z o.o.
 
-  cp         CAREFUL! If you specify multiple sources or targets, you will use Hydra Jump Sharding. Otherwise simple copy.
+  cp         Copies data between Azure Storage Accounts. WARNING! If you specify multiple sources or targets, you will use Hydra Jump Sharding. Very useful for re-sharding data.
 
-  rm         Remove all objects from target storage accounts
+  rm         Remove all objects from target storage accounts.
 
   help       Display more information on a specific command.
 
@@ -70,7 +70,7 @@ Copyright © Surveily sp. z o.o.
 
 #### Copy Task
 
-Copies data between Azure Storage Accounts. If you specify multiple sources or targets, you will use Hydra Jump Sharding. Otherwise simple copy.
+Copies data between Azure Storage Accounts. WARNING! If you specify multiple sources or targets, you will use Hydra Jump Sharding. Very useful for re-sharding data.
 
 ```
 $ hydra cp --help
