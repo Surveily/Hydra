@@ -9,20 +9,24 @@ using System.Threading;
 using System.Threading.Tasks;
 using CommandLine;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace Hydra.Tools.Commands
 {
     internal class CommandService : BackgroundService
     {
         private readonly string[] _args;
+        private readonly ILogger _logger;
         private readonly IEnumerable<ICommand> _commands;
         private readonly TaskCompletionSource<int> _result;
 
-        public CommandService(string[] args, IEnumerable<ICommand> commands, TaskCompletionSource<int> result)
+        public CommandService(string[] args, IEnumerable<ICommand> commands, TaskCompletionSource<int> result, ILoggerFactory loggerFactory)
         {
             _args = args;
             _result = result;
             _commands = commands;
+
+            _logger = loggerFactory.CreateLogger<CommandService>();
         }
 
         protected override async Task ExecuteAsync(CancellationToken token)

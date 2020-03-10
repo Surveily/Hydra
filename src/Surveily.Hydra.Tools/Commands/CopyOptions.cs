@@ -26,9 +26,6 @@ namespace Hydra.Tools.Commands
         [Option('t', "target", Required = true, HelpText = "Accounts to write to.")]
         public IEnumerable<string> Target { get; set; }
 
-        [Option('c', "clear", Required = false, HelpText = "Whether to clear all target objects.")]
-        public bool Clear { get; set; }
-
         public (List<CommandAccount> Sources, List<CommandAccount> Targets) GetAccounts()
         {
             var sourceAccounts = Source.Select(x =>
