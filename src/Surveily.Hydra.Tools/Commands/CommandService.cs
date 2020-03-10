@@ -43,7 +43,7 @@ namespace Hydra.Tools.Commands
 
         private async Task RunCommand(ICommand command, CancellationToken token)
         {
-            using (StopwatchLog.LogTime(ts => Console.WriteLine($"Finished execution in {ts}.")))
+            using (StopwatchLog.LogTime(ts => _logger.LogInformation($"Finished execution in {ts}.")))
             {
                 await command.RunAsync(token);
             }
@@ -55,7 +55,7 @@ namespace Hydra.Tools.Commands
         {
             foreach (var error in errors)
             {
-                Console.WriteLine(error);
+                _logger.LogError($"{error}");
 
                 if (error.StopsProcessing)
                 {
