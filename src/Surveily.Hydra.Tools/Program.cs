@@ -57,6 +57,7 @@ namespace Hydra.Tools
 
                                services.AddHostedService<CommandService>();
                                services.AddSingleton<ICommand, CopyCommand>();
+                               services.AddSingleton<ICommand, ClearCommand>();
                                services.AddSingleton<IConfiguration>(hostContext.Configuration);
                            });
 
