@@ -52,7 +52,19 @@ Example usage can be found in the Hydra.Tests.Integration namespace.
 
 ## Hydra.Tools
 
-` cp `
+```
+$ hydra
+Surveily.Hydra.Tools 1.0.0
+Copyright © Surveily sp. z o.o.
 
-Copy contents from a source collection of Azure Storage Accounts to a target collection of Azure Storage Accounts.
+ERROR(S):
+  No verb selected.
 
+  cp         CAREFUL! If you specify multiple sources or targets, you will use Hydra Jump Sharding. Otherwise simple copy.
+
+  rm         Remove all objects from target storage accounts
+
+  help       Display more information on a specific command.
+
+  version    Display version information.
+```
