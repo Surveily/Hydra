@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using CommandLine;
@@ -12,6 +13,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.WindowsAzure.Storage.Queue;
+using Microsoft.WindowsAzure.Storage.Table;
 using Polly;
 using Polly.Retry;
 
@@ -46,24 +50,9 @@ namespace Hydra.Tools.Commands
 
         public async Task RunAsync()
         {
-            if (Options.Sharding)
-            {
-                await CopySharding();
-            }
-            else
-            {
-                await Copy();
-            }
-        }
+            var accounts = Options.GetAccounts();
 
-        private Task CopySharding()
-        {
-            throw new NotImplementedException();
-        }
-
-        private Task Copy()
-        {
-            throw new NotImplementedException();
+            await Task.Delay(1);
         }
     }
 }
