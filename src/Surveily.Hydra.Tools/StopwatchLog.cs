@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace Hydra.Tools
 {
-    public class StopwatchLog : IDisposable
+    internal class StopwatchLog : IDisposable
     {
         private readonly Stopwatch _stopwatch;
         private readonly Action<TimeSpan> _endCallback;

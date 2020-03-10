@@ -6,9 +6,9 @@ using System;
 
 namespace Hydra.Tools
 {
-    public static class NullCheckExtensions
+    internal static class NullCheckExtensions
     {
-        public static T ThrowIfNull<T>(this T subject, string message)
+        internal static T ThrowIfNull<T>(this T subject, string message)
         {
             if (subject == null)
             {
