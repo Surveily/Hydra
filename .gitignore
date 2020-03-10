@@ -173,3 +173,6 @@ src/Switchee.Common.Spa/dist/*
 *.clf
 *.etag
 interval.json
+
+# Launch
+launch.json
