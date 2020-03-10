@@ -55,35 +55,52 @@ namespace Hydra.Tools.Commands
         public async Task RunAsync(CancellationToken token)
         {
             var accounts = Options.GetAccounts();
-            var target = Hydra.Core.Hydra.Create(new JumpSharding(), accounts.Targets.Select(x => x.Account));
 
-            foreach (var source in accounts.Sources)
+            if (Options.Clear)
             {
-                if (!token.IsCancellationRequested)
+                foreach (var account in accounts.Targets)
                 {
-                    if (Options.Clear)
+                    if (!token.IsCancellationRequested)
                     {
-                        _logger.LogInformation($"Clearing tables from account: {source}");
-                        _logger.LogInformation($"Clearing queues from account: {source}");
-                        _logger.LogInformation($"Clearing blob containers from account: {source}");
+                        _logger.LogInformation($"Clearing tables from account: {account}");
+
+                        await Clear(account.TableClient, token);
+
+                        _logger.LogInformation($"Clearing queues from account: {account}");
+
+                        await Clear(account.QueueClient, token);
+
+                        _logger.LogInformation($"Clearing blob containers from account: {account}");
+
+                        await Clear(account.BlobClient, token);
                     }
+                }
+            }
+            else
+            {
+                var target = Hydra.Core.Hydra.Create(new JumpSharding(), accounts.Targets.Select(x => x.Account));
 
-                    _logger.LogInformation($"Processing tables from account: {source}");
+                foreach (var account in accounts.Sources)
+                {
+                    if (!token.IsCancellationRequested)
+                    {
+                        _logger.LogInformation($"Copying tables from account: {account}");
 
-                    await CopyTables(source.TableClient, target, token);
+                        await Copy(account.TableClient, target, token);
 
-                    _logger.LogInformation($"Processing queues from account: {source}");
+                        _logger.LogInformation($"Copying queues from account: {account}");
 
-                    await CopyQueues(source.QueueClient, target, token);
+                        await Copy(account.QueueClient, target, token);
 
-                    _logger.LogInformation($"Processing blob containers from account: {source}");
+                        _logger.LogInformation($"Copying blob containers from account: {account}");
 
-                    await CopyContainers(source.BlobClient, target, token);
+                        await Copy(account.BlobClient, target, token);
+                    }
                 }
             }
         }
 
-        private async Task CopyTables(CloudTableClient source, IHydra target, CancellationToken token)
+        private async Task Copy(CloudTableClient source, IHydra target, CancellationToken token)
         {
             var response = await source.ListTablesSegmentedAsync(null);
 
@@ -121,15 +138,35 @@ namespace Hydra.Tools.Commands
 
                         entities = await sourceItem.ExecuteQuerySegmentedAsync(query, entities.ContinuationToken);
                     }
-                    while (entities.ContinuationToken != null);
+                    while (entities.ContinuationToken != null && !token.IsCancellationRequested);
                 }
 
                 response = await source.ListTablesSegmentedAsync(response.ContinuationToken);
             }
-            while (response.ContinuationToken != null);
+            while (response.ContinuationToken != null && !token.IsCancellationRequested);
         }
 
-        private async Task CopyQueues(CloudQueueClient sourceClient, IHydra target, CancellationToken token)
+        private async Task Clear(CloudTableClient target, CancellationToken token)
+        {
+            var response = await target.ListTablesSegmentedAsync(null);
+
+            do
+            {
+                foreach (var item in response.Results)
+                {
+                    var targetItem = target.GetTableReference(item.Name);
+
+                    _logger.LogInformation($"Deleting {item.GetType().Name} '{item.Name}'...");
+
+                    await targetItem.DeleteAsync();
+                }
+
+                response = await target.ListTablesSegmentedAsync(response.ContinuationToken);
+            }
+            while (response.ContinuationToken != null && !token.IsCancellationRequested);
+        }
+
+        private async Task Copy(CloudQueueClient sourceClient, IHydra target, CancellationToken token)
         {
             var response = await sourceClient.ListQueuesSegmentedAsync(null);
 
@@ -146,10 +183,30 @@ namespace Hydra.Tools.Commands
 
                 response = await sourceClient.ListQueuesSegmentedAsync(response.ContinuationToken);
             }
-            while (response.ContinuationToken != null);
+            while (response.ContinuationToken != null && !token.IsCancellationRequested);
         }
 
-        private async Task CopyContainers(CloudBlobClient sourceClient, IHydra target, CancellationToken token)
+        private async Task Clear(CloudQueueClient target, CancellationToken token)
+        {
+            var response = await target.ListQueuesSegmentedAsync(null);
+
+            do
+            {
+                foreach (var sourceItem in response.Results)
+                {
+                    var targetItem = target.GetQueueReference(sourceItem.Name);
+
+                    _logger.LogInformation($"Deleting {sourceItem.GetType().Name} '{sourceItem.Name}'...");
+
+                    await targetItem.DeleteAsync();
+                }
+
+                response = await target.ListQueuesSegmentedAsync(response.ContinuationToken);
+            }
+            while (response.ContinuationToken != null && !token.IsCancellationRequested);
+        }
+
+        private async Task Copy(CloudBlobClient sourceClient, IHydra target, CancellationToken token)
         {
             var response = await sourceClient.ListContainersSegmentedAsync(null);
 
@@ -212,12 +269,32 @@ namespace Hydra.Tools.Commands
 
                         sourceResponse = await sourceItem.ListBlobsSegmentedAsync(null, true, BlobListingDetails.All, null, sourceResponse.ContinuationToken, null, null);
                     }
-                    while (sourceResponse.ContinuationToken != null);
+                    while (sourceResponse.ContinuationToken != null && !token.IsCancellationRequested);
                 }
 
                 response = await sourceClient.ListContainersSegmentedAsync(response.ContinuationToken);
             }
-            while (response.ContinuationToken != null);
+            while (response.ContinuationToken != null && !token.IsCancellationRequested);
+        }
+
+        private async Task Clear(CloudBlobClient target, CancellationToken token)
+        {
+            var response = await target.ListContainersSegmentedAsync(null);
+
+            do
+            {
+                foreach (var sourceItem in response.Results.Where(x => !x.Name.StartsWith("azure-")))
+                {
+                    var targetItem = target.GetContainerReference(sourceItem.Name);
+
+                    _logger.LogInformation($"Deleting {sourceItem.GetType().Name} '{sourceItem.Name}'...");
+
+                    await targetItem.DeleteAsync();
+                }
+
+                response = await target.ListContainersSegmentedAsync(response.ContinuationToken);
+            }
+            while (response.ContinuationToken != null && !token.IsCancellationRequested);
         }
     }
 }
