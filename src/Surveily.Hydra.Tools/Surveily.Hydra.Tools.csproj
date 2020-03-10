@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <PackAsTool>true</PackAsTool>
+        <ToolCommandName>hydra</ToolCommandName>
+    </PropertyGroup>
+    <PropertyGroup>
+        <PackageId>Surveily.Hydra.Tools</PackageId>
+        <PackageVersion>1.0</PackageVersion>
+        <PackageIconUrl>https://avatars1.githubusercontent.com/u/61705681?s=200</PackageIconUrl>
+        <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
+        <Authors>Surveily Spółka z Ograniczoną Odpowiedzialnością</Authors>
+        <Description>Migration and management tools for Azure Storage.</Description>
+        <Copyright>Copyright © Surveily sp. z o.o.</Copyright>
+        <RepositoryUrl>https://github.com/Surveily/Hydra</RepositoryUrl>
+        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+        <PackageTags>Azure;Table;Storage;Shard;Sharding</PackageTags>
+    </PropertyGroup>
+    <PropertyGroup>
+        <CodeAnalysisRuleSet>..\stylecop.ruleset</CodeAnalysisRuleSet>
+    </PropertyGroup>
+    <ItemGroup>
+        <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Surveily.Hydra.Core\Surveily.Hydra.Core.csproj" />
+        <ProjectReference Include="..\Surveily.Hydra.Events\Surveily.Hydra.Events.csproj" />
+    </ItemGroup>
+</Project>

@@ -20,5 +20,6 @@
     <ItemGroup>
         <ProjectReference Include="..\Surveily.Hydra.Core\Surveily.Hydra.Core.csproj" />
         <ProjectReference Include="..\Surveily.Hydra.Events\Surveily.Hydra.Events.csproj" />
+        <ProjectReference Include="..\Surveily.Hydra.Tools\Surveily.Hydra.Tools.csproj" />
     </ItemGroup>
 </Project>

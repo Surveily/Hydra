@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Surveily.Hydra.Events", "Su
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Surveily.Hydra.Tests", "Surveily.Hydra.Tests\Surveily.Hydra.Tests.csproj", "{BC38ACB8-B83C-4769-8823-456542EBDB74}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Surveily.Hydra.Tools", "Surveily.Hydra.Tools\Surveily.Hydra.Tools.csproj", "{B44D5E08-0C55-40E7-AC15-82E625809AF7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,5 +60,17 @@ Global
 		{BC38ACB8-B83C-4769-8823-456542EBDB74}.Release|x64.Build.0 = Release|Any CPU
 		{BC38ACB8-B83C-4769-8823-456542EBDB74}.Release|x86.ActiveCfg = Release|Any CPU
 		{BC38ACB8-B83C-4769-8823-456542EBDB74}.Release|x86.Build.0 = Release|Any CPU
+		{B44D5E08-0C55-40E7-AC15-82E625809AF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B44D5E08-0C55-40E7-AC15-82E625809AF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B44D5E08-0C55-40E7-AC15-82E625809AF7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B44D5E08-0C55-40E7-AC15-82E625809AF7}.Debug|x64.Build.0 = Debug|Any CPU
+		{B44D5E08-0C55-40E7-AC15-82E625809AF7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B44D5E08-0C55-40E7-AC15-82E625809AF7}.Debug|x86.Build.0 = Debug|Any CPU
+		{B44D5E08-0C55-40E7-AC15-82E625809AF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B44D5E08-0C55-40E7-AC15-82E625809AF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B44D5E08-0C55-40E7-AC15-82E625809AF7}.Release|x64.ActiveCfg = Release|Any CPU
+		{B44D5E08-0C55-40E7-AC15-82E625809AF7}.Release|x64.Build.0 = Release|Any CPU
+		{B44D5E08-0C55-40E7-AC15-82E625809AF7}.Release|x86.ActiveCfg = Release|Any CPU
+		{B44D5E08-0C55-40E7-AC15-82E625809AF7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
