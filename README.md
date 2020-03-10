@@ -52,13 +52,12 @@ Example usage can be found in the Hydra.Tests.Integration namespace.
 
 ## Hydra.Tools
 
+#### Commands
+
 ```
-$ hydra
+$ hydra --help   
 Surveily.Hydra.Tools 1.0.0
 Copyright © Surveily sp. z o.o.
-
-ERROR(S):
-  No verb selected.
 
   cp         CAREFUL! If you specify multiple sources or targets, you will use Hydra Jump Sharding. Otherwise simple copy.
 
@@ -67,4 +66,38 @@ ERROR(S):
   help       Display more information on a specific command.
 
   version    Display version information.
+```
+
+#### Copy Task
+
+Copies data between Azure Storage Accounts. If you specify multiple sources or targets, you will use Hydra Jump Sharding. Otherwise simple copy.
+
+```
+$ hydra cp --help
+Surveily.Hydra.Tools 1.0.0
+Copyright © Surveily sp. z o.o.
+
+  -s, --source    Required. Accounts to read from.
+
+  -t, --target    Required. Accounts to write to.
+
+  --help          Display this help screen.
+
+  --version       Display version information.
+```
+
+#### Clear Task
+
+Deletes all data from Azure Storage Accounts.
+
+```
+$ hydra rm --help
+Surveily.Hydra.Tools 1.0.0
+Copyright © Surveily sp. z o.o.
+
+  -t, --target    Required. Accounts to write to.
+
+  --help          Display this help screen.
+
+  --version       Display version information.
 ```
