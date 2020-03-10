@@ -13,23 +13,20 @@
 	"appPort": [],
 	"extensions": [
 		"kosunix.guid",
-		"ms-vscode.csharp",
 		"k--kato.docomment",
 		"redhat.vscode-yaml",
-		"ms-vscode.powershell",
 		"mikeburgh.xml-format",
+		"ms-dotnettools.csharp",
 		"donjayamanne.githistory",
 		"jchannon.csharpextensions",
-		"wayou.vscode-todo-highlight",
-		"ms-azuretools.vscode-docker"
+		"wayou.vscode-todo-highlight"
 	],
 	"settings": {
-		"csharp.referencesCodeLens.enabled": false,
 		"extensions.autoUpdate": false,
+		"workbench.editor.enablePreview": false,
+		"workbench.editor.enablePreviewFromQuickOpen": false,
+		"csharp.referencesCodeLens.enabled": false,
 		"omnisharp.useGlobalMono": "never",
-		"dotnet-test-explorer.autoWatch": false,
-		"dotnet-test-explorer.autoExpandTree": true,
-		"dotnet-test-explorer.testProjectPath": "src",
 		"csharpextensions.privateMemberPrefix": "_",
 		"csharpextensions.useThisForCtorAssignments": false,
 		"files.exclude": {
