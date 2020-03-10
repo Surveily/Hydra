@@ -20,7 +20,7 @@ using MoreLinq;
 
 namespace Hydra.Tools.Commands
 {
-    public class CommandProgress : IProgress<StorageProgress>
+    internal class CommandProgress : IProgress<StorageProgress>
     {
         private readonly Microsoft.Extensions.Logging.ILogger _logger;
         private readonly string _msg;
