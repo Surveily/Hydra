@@ -1,0 +1,14 @@
+.devcontainer
+.git
+.gitignore
+.gitmodules
+.vscode
+doc
+helm
+tmp
+output
+
+**/bin/
+**/obj/
+**/out/
+**/TestResults/
