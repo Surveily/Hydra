@@ -20,15 +20,15 @@ A central component for scaling across multiple Storage Accounts. It is using an
 
 Default implementation of ISharding provided is JumpSharding that implement's Jump Consistent Hash.
 
-### Disclaimer
+#### Disclaimer
 
 Hydra.Core doesn't manage shard migration, which means you are constrained the amount of Storage Accounts you start of with. The more the better.
 
-### Advanced usage
+#### Advanced usage
 
 It is possible to have multiple instances of Hydra, configured to point at different and/or the same Storage Accounts, with different and/or the same ISharding implementations. That feature gives the developer maximum flexibility for making sure the right data is distributed in the right way.
 
-### Example
+#### Example
 
 Example usage can be found in the Hydra.Tests.Integration namespace.
 
@@ -42,10 +42,17 @@ A central component for managing Stream's underlying storage. It requires an IHy
 
 This component is in charge of writing and reading events to a stream in storage.
 
-### Disclaimer
+#### Disclaimer
 
 Hydra.Events has a limitation dictated by Azure Storage. Currently one stream can consist of up to 50,000 events and 195GB of space.
 
-### Example
+#### Example
 
 Example usage can be found in the Hydra.Tests.Integration namespace.
+
+## Hydra.Tools
+
+` cp `
+
+Copy contents from a source collection of Azure Storage Accounts to a target collection of Azure Storage Accounts.
+
