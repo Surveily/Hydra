@@ -7,8 +7,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using CommandLine;
+using Hydra.Core;
+using Hydra.Core.Sharding;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -16,6 +19,7 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Queue;
 using Microsoft.WindowsAzure.Storage.Table;
+using MoreLinq;
 using Polly;
 using Polly.Retry;
 
@@ -48,11 +52,172 @@ namespace Hydra.Tools.Commands
 
         public Type OptionsType => typeof(CopyOptions);
 
-        public async Task RunAsync()
+        public async Task RunAsync(CancellationToken token)
         {
             var accounts = Options.GetAccounts();
+            var target = Hydra.Core.Hydra.Create(new JumpSharding(), accounts.Targets.Select(x => x.Account));
 
-            await Task.Delay(1);
+            foreach (var source in accounts.Sources)
+            {
+                if (!token.IsCancellationRequested)
+                {
+                    if (Options.Clear)
+                    {
+                        _logger.LogInformation($"Clearing tables from account: {source}");
+                        _logger.LogInformation($"Clearing queues from account: {source}");
+                        _logger.LogInformation($"Clearing blob containers from account: {source}");
+                    }
+
+                    _logger.LogInformation($"Processing tables from account: {source}");
+
+                    await CopyTables(source.TableClient, target, token);
+
+                    _logger.LogInformation($"Processing queues from account: {source}");
+
+                    await CopyQueues(source.QueueClient, target, token);
+
+                    _logger.LogInformation($"Processing blob containers from account: {source}");
+
+                    await CopyContainers(source.BlobClient, target, token);
+                }
+            }
+        }
+
+        private async Task CopyTables(CloudTableClient source, IHydra target, CancellationToken token)
+        {
+            var response = await source.ListTablesSegmentedAsync(null);
+
+            do
+            {
+                foreach (var sourceItem in response.Results)
+                {
+                    _logger.LogInformation($"Processing {sourceItem.GetType().Name} '{sourceItem.Name}'.");
+
+                    var processed = 0L;
+                    var query = new TableQuery<DynamicTableEntity>();
+                    var entities = await sourceItem.ExecuteQuerySegmentedAsync(query, null);
+
+                    do
+                    {
+                        foreach (var group in entities.GroupBy(x => x.PartitionKey))
+                        {
+                            var targetClient = target.CreateTableClient(group.Key);
+                            var targetItem = targetClient.GetTableReference(sourceItem.Name);
+                            await _policyCreate.ExecuteAsync(async () => await targetItem.CreateIfNotExistsAsync());
+
+                            foreach (var batch in group.Batch(100))
+                            {
+                                var operation = new TableBatchOperation();
+
+                                batch.ForEach(x => operation.Insert(x));
+
+                                await targetItem.ExecuteBatchAsync(operation);
+                            }
+                        }
+
+                        processed += entities.LongCount();
+
+                        _logger.LogInformation($"Processed {sourceItem.GetType().Name} '{sourceItem.Name}' {processed} entities.");
+
+                        entities = await sourceItem.ExecuteQuerySegmentedAsync(query, entities.ContinuationToken);
+                    }
+                    while (entities.ContinuationToken != null);
+                }
+
+                response = await source.ListTablesSegmentedAsync(response.ContinuationToken);
+            }
+            while (response.ContinuationToken != null);
+        }
+
+        private async Task CopyQueues(CloudQueueClient sourceClient, IHydra target, CancellationToken token)
+        {
+            var response = await sourceClient.ListQueuesSegmentedAsync(null);
+
+            do
+            {
+                foreach (var sourceItem in response.Results)
+                {
+                    _logger.LogInformation($"Processing {sourceItem.GetType().Name} '{sourceItem.Name}'.");
+
+                    var targetClient = target.CreateQueueClient(string.Empty);
+                    var targetItem = targetClient.GetQueueReference(sourceItem.Name);
+                    await _policyCreate.ExecuteAsync(async () => await targetItem.CreateIfNotExistsAsync());
+                }
+
+                response = await sourceClient.ListQueuesSegmentedAsync(response.ContinuationToken);
+            }
+            while (response.ContinuationToken != null);
+        }
+
+        private async Task CopyContainers(CloudBlobClient sourceClient, IHydra target, CancellationToken token)
+        {
+            var response = await sourceClient.ListContainersSegmentedAsync(null);
+
+            do
+            {
+                foreach (var sourceItem in response.Results.Where(x => !x.Name.StartsWith("azure-")))
+                {
+                    _logger.LogInformation($"Processing {sourceItem.GetType().Name} '{sourceItem.Name}'.");
+
+                    var targetClient = target.CreateBlobClient(string.Empty);
+                    var targetItem = targetClient.GetContainerReference(sourceItem.Name);
+                    await _policyCreate.ExecuteAsync(async () => await targetItem.CreateIfNotExistsAsync());
+
+                    var sourceResponse = await sourceItem.ListBlobsSegmentedAsync(null, true, BlobListingDetails.All, null, null, null, null);
+
+                    do
+                    {
+                        foreach (var sourceEntity in sourceResponse.Results.Cast<CloudBlockBlob>())
+                        {
+                            _logger.LogInformation($"Processing {sourceEntity.GetType().Name} '{sourceEntity.Name}'.");
+
+                            var targetEntity = targetItem.GetBlockBlobReference(sourceEntity.Name);
+
+                            if (sourceEntity.Properties.Length > 0)
+                            {
+                                var tempFile = Path.GetTempFileName();
+
+                                await _policyDownload.ExecuteAsync(async () =>
+                                {
+                                    if (File.Exists(tempFile))
+                                    {
+                                        File.Delete(tempFile);
+                                    }
+
+                                    await sourceEntity.DownloadToFileAsync(tempFile, FileMode.CreateNew, null, null, null, new CommandProgress(_logger, sourceEntity.Properties.Length, $"Download: {sourceEntity.Name}."), token);
+                                });
+
+                                await _policyUpload.ExecuteAsync(async () =>
+                                {
+                                    await targetEntity.UploadFromFileAsync(tempFile, null, null, null, new CommandProgress(_logger, sourceEntity.Properties.Length, $"Upload: {targetEntity.Name}."), token);
+                                });
+
+                                File.Delete(tempFile);
+                            }
+                            else
+                            {
+                                await _policyUpload.ExecuteAsync(async () =>
+                                {
+                                    await targetEntity.UploadTextAsync(string.Empty);
+                                });
+                            }
+
+                            await _policyUpload.ExecuteAsync(async () =>
+                            {
+                                targetEntity.Properties.ContentType = sourceEntity.Properties.ContentType;
+
+                                await targetEntity.SetPropertiesAsync();
+                            });
+                        }
+
+                        sourceResponse = await sourceItem.ListBlobsSegmentedAsync(null, true, BlobListingDetails.All, null, sourceResponse.ContinuationToken, null, null);
+                    }
+                    while (sourceResponse.ContinuationToken != null);
+                }
+
+                response = await sourceClient.ListContainersSegmentedAsync(response.ContinuationToken);
+            }
+            while (response.ContinuationToken != null);
         }
     }
 }

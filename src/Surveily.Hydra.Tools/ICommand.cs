@@ -3,6 +3,7 @@
 // </copyright>
 
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Hydra.Tools
@@ -11,7 +12,7 @@ namespace Hydra.Tools
     {
         Type OptionsType { get; }
 
-        Task RunAsync();
+        Task RunAsync(CancellationToken token);
     }
 
     internal interface ICommand<T> : ICommand

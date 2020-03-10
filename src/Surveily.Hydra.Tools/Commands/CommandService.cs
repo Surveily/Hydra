@@ -34,14 +34,14 @@ namespace Hydra.Tools.Commands
                 parser.AddCommand(command);
             }
 
-            await parser.ParseAsync(_args, RunCommand, HandleError);
+            await parser.ParseAsync(_args, RunCommand, HandleError, token);
         }
 
-        private async Task RunCommand(ICommand command)
+        private async Task RunCommand(ICommand command, CancellationToken token)
         {
             using (StopwatchLog.LogTime(ts => Console.WriteLine($"Finished execution in {ts}.")))
             {
-                await command.RunAsync();
+                await command.RunAsync(token);
             }
 
             _result.TrySetResult(0);
