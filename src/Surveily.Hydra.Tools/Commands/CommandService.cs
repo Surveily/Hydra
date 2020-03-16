@@ -31,14 +31,21 @@ namespace Hydra.Tools.Commands
 
         protected override async Task ExecuteAsync(CancellationToken token)
         {
-            var parser = Parser.CreateNew();
-
-            foreach (var command in _commands)
+            try
             {
-                parser.AddCommand(command);
-            }
+                var parser = Parser.CreateNew();
 
-            await parser.ParseAsync(_args, RunCommand, HandleError, token);
+                foreach (var command in _commands)
+                {
+                    parser.AddCommand(command);
+                }
+
+                await parser.ParseAsync(_args, RunCommand, HandleError, token);
+            }
+            catch (Exception ex)
+            {
+                _result.TrySetException(ex);
+            }
         }
 
         private async Task RunCommand(ICommand command, CancellationToken token)

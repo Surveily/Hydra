@@ -23,6 +23,9 @@ namespace Hydra.Tools.Commands
         [Option('t', "target", Required = true, HelpText = "Accounts to write to.")]
         public IEnumerable<string> Target { get; set; }
 
+        [Option('o', "object", Required = false, HelpText = "Scope the task to single Storage object by name (eg. Table name).")]
+        public string Object { get; set; }
+
         public List<CommandAccount> GetAccounts()
         {
             return Target.Select(x =>

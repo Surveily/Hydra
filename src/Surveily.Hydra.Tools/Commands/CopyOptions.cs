@@ -26,6 +26,15 @@ namespace Hydra.Tools.Commands
         [Option('t', "target", Required = true, HelpText = "Accounts to write to.")]
         public IEnumerable<string> Target { get; set; }
 
+        [Option('o', "object", Required = false, HelpText = "Scope the task to single Storage object by name (eg. Table name).")]
+        public string Object { get; set; }
+
+        [Option('p', "override-properties", Required = false, HelpText = "Select which properties to override.")]
+        public IEnumerable<string> OverrideField { get; set; }
+
+        [Option('v', "override-values", Required = false, HelpText = "Set value for the overriden properties.")]
+        public IEnumerable<string> OverrideValue { get; set; }
+
         public (List<CommandAccount> Sources, List<CommandAccount> Targets) GetAccounts()
         {
             var sourceAccounts = Source.Select(x =>

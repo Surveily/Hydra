@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Hydra.Tools.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -62,7 +63,7 @@ namespace Hydra.Tools.Commands
 
             do
             {
-                foreach (var item in response.Results)
+                foreach (var item in response.Results.Where(x => string.IsNullOrWhiteSpace(Options.Object) || x.Name.EqualsCi(Options.Object)))
                 {
                     var targetItem = target.GetTableReference(item.Name);
 
@@ -82,7 +83,7 @@ namespace Hydra.Tools.Commands
 
             do
             {
-                foreach (var sourceItem in response.Results)
+                foreach (var sourceItem in response.Results.Where(x => string.IsNullOrWhiteSpace(Options.Object) || x.Name.EqualsCi(Options.Object)))
                 {
                     var targetItem = target.GetQueueReference(sourceItem.Name);
 
@@ -102,7 +103,7 @@ namespace Hydra.Tools.Commands
 
             do
             {
-                foreach (var sourceItem in response.Results.Where(x => !x.Name.StartsWith("azure-")))
+                foreach (var sourceItem in response.Results.Where(x => string.IsNullOrWhiteSpace(Options.Object) || x.Name.EqualsCi(Options.Object)).Where(x => !x.Name.StartsWith("azure-")))
                 {
                     var targetItem = target.GetContainerReference(sourceItem.Name);
 

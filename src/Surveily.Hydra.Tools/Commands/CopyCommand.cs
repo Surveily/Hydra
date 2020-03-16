@@ -83,7 +83,7 @@ namespace Hydra.Tools.Commands
 
             do
             {
-                foreach (var sourceItem in response.Results)
+                foreach (var sourceItem in response.Results.Where(x => string.IsNullOrWhiteSpace(Options.Object) || x.Name.EqualsCi(Options.Object)))
                 {
                     _logger.LogInformation($"Processing {sourceItem.GetType().Name} '{sourceItem.Name}'.");
 
@@ -129,7 +129,7 @@ namespace Hydra.Tools.Commands
 
             do
             {
-                foreach (var sourceItem in response.Results)
+                foreach (var sourceItem in response.Results.Where(x => string.IsNullOrWhiteSpace(Options.Object) || x.Name.EqualsCi(Options.Object)))
                 {
                     _logger.LogInformation($"Processing {sourceItem.GetType().Name} '{sourceItem.Name}'.");
 
@@ -149,7 +149,7 @@ namespace Hydra.Tools.Commands
 
             do
             {
-                foreach (var sourceItem in response.Results.Where(x => !x.Name.StartsWith("azure-")))
+                foreach (var sourceItem in response.Results.Where(x => string.IsNullOrWhiteSpace(Options.Object) || x.Name.EqualsCi(Options.Object)).Where(x => !x.Name.StartsWith("azure-")))
                 {
                     _logger.LogInformation($"Processing {sourceItem.GetType().Name} '{sourceItem.Name}'.");
 
