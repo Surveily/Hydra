@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using CommandLine;
@@ -93,6 +94,8 @@ namespace Hydra.Tools.Commands
 
                     do
                     {
+                        ApplyOverrides(entities);
+
                         foreach (var group in entities.GroupBy(x => x.PartitionKey))
                         {
                             var targetClient = target.CreateTableClient(group.Key);
@@ -121,6 +124,57 @@ namespace Hydra.Tools.Commands
                 response = await source.ListTablesSegmentedAsync(response.ContinuationToken);
             }
             while (response.ContinuationToken != null && !token.IsCancellationRequested);
+        }
+
+        private void ApplyOverrides(TableQuerySegment<DynamicTableEntity> entities)
+        {
+            for (var i = 0; i < Options.OverrideField.Count(); i++)
+            {
+                var field = Options.OverrideField.ElementAt(i);
+                var value = Options.OverrideValue.ElementAt(i);
+
+                foreach (var entity in entities)
+                {
+                    if (field.EqualsCi(nameof(DynamicTableEntity.RowKey)))
+                    {
+                        entity.RowKey = value;
+                    }
+                    else if (field.EqualsCi(nameof(DynamicTableEntity.PartitionKey)))
+                    {
+                        entity.PartitionKey = value;
+                    }
+                    else
+                    {
+                        switch (entity.Properties[field].PropertyType)
+                        {
+                            case EdmType.Guid:
+                                entity.Properties[field].GuidValue = Guid.Parse(value);
+                                break;
+                            case EdmType.Int32:
+                                entity.Properties[field].Int32Value = int.Parse(value);
+                                break;
+                            case EdmType.Int64:
+                                entity.Properties[field].Int64Value = long.Parse(value);
+                                break;
+                            case EdmType.Double:
+                                entity.Properties[field].DoubleValue = double.Parse(value);
+                                break;
+                            case EdmType.Boolean:
+                                entity.Properties[field].BooleanValue = bool.Parse(value);
+                                break;
+                            case EdmType.Binary:
+                                entity.Properties[field].BinaryValue = Encoding.Default.GetBytes(value);
+                                break;
+                            case EdmType.DateTime:
+                                entity.Properties[field].DateTimeOffsetValue = DateTimeOffset.Parse(value);
+                                break;
+                            default:
+                                entity.Properties[field].StringValue = value;
+                                break;
+                        }
+                    }
+                }
+            }
         }
 
         private async Task Copy(CloudQueueClient sourceClient, IHydra target, CancellationToken token)

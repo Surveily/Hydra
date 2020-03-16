@@ -29,7 +29,7 @@ namespace Hydra.Tools.Commands
         [Option('o', "object", Required = false, HelpText = "Scope the task to single Storage object by name (eg. Table name).")]
         public string Object { get; set; }
 
-        [Option('p', "override-properties", Required = false, HelpText = "Select which properties to override.")]
+        [Option('f', "override-fields", Required = false, HelpText = "Select which fields to override.")]
         public IEnumerable<string> OverrideField { get; set; }
 
         [Option('v', "override-values", Required = false, HelpText = "Set value for the overriden properties.")]
