@@ -1,7 +1,13 @@
 ## Hydra
  
- ![Build Status](https://dev.azure.com/varunit/Platform/_apis/build/status/Build%20and%20Package%20Hydra) [![NuGet](https://img.shields.io/nuget/v/Surveily.Hydra.Core.svg)](https://www.nuget.org/packages/Surveily.Hydra.Core/)  [![NuGet](https://img.shields.io/nuget/v/Surveily.Hydra.Events.svg)](https://www.nuget.org/packages/Surveily.Hydra.Events/)
+ ![Build Status](https://dev.azure.com/varunit/Platform/_apis/build/status/Build%20and%20Package%20Hydra)
 
+|Project|Package|
+|---|---|
+|Surveily.Hydra.Core|[![NuGet](https://img.shields.io/nuget/v/Surveily.Hydra.Core.svg)](https://www.nuget.org/packages/Surveily.Hydra.Core/)|
+|Surveily.Hydra.Events|[![NuGet](https://img.shields.io/nuget/v/Surveily.Hydra.Events.svg)](https://www.nuget.org/packages/Surveily.Hydra.Events/)|
+|Surveily.Hydra.Tools|[![NuGet](https://img.shields.io/nuget/v/Surveily.Hydra.Tools.svg)](https://www.nuget.org/packages/Surveily.Hydra.Tools/)|
+ 
 A set of components to take the most advantage of performance and capacity of Azure Storage. 
 
 Hydra is Azure Subscription agnostic, which means it is possible to use Storage Accounts from different Azure Subscriptions. This functionality gives the developer configurable IOPS and Disk Space with no upper limits.
