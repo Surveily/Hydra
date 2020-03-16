@@ -167,7 +167,6 @@ bower_components/
 # Webpack components
 src/**/wwwroot/dist/
 *.orig
-src/Switchee.Common.Spa/dist/*
 *.userprefs
 *.pyc
 *.clf
