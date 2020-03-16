@@ -52,10 +52,12 @@ Example usage can be found in the Hydra.Tests.Integration namespace.
 
 ## Hydra.Tools
 
+Tools package is a set of utilities to help developers manage re-sharding via data copy and data deletion.
+
 #### Commands
 
 ```
-$ hydra --help   
+$ hydra --help
 Surveily.Hydra.Tools 1.0.0
 Copyright © Surveily sp. z o.o.
 
@@ -77,13 +79,19 @@ $ hydra cp --help
 Surveily.Hydra.Tools 1.0.0
 Copyright © Surveily sp. z o.o.
 
-  -s, --source    Required. Accounts to read from.
+  -s, --source             Required. Accounts to read from.
 
-  -t, --target    Required. Accounts to write to.
+  -t, --target             Required. Accounts to write to.
 
-  --help          Display this help screen.
+  -o, --object             Scope the task to single Storage object by name (eg. Table name).
 
-  --version       Display version information.
+  -f, --override-fields    Select which fields to override.
+
+  -v, --override-values    Set value for the overriden properties.
+
+  --help                   Display this help screen.
+
+  --version                Display version information.
 ```
 
 #### Clear Task
@@ -96,6 +104,8 @@ Surveily.Hydra.Tools 1.0.0
 Copyright © Surveily sp. z o.o.
 
   -t, --target    Required. Accounts to write to.
+
+  -o, --object    Scope the task to single Storage object by name (eg. Table name).
 
   --help          Display this help screen.
 

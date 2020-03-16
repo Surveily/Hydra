@@ -1,5 +1,6 @@
 // See https://aka.ms/vscode-remote/containers for the
 // documentation about the devcontainer.json format
+// export PATH="$PATH:/root/.dotnet/tools"
 {
 	"name": "surveily-hydra-developer",
 	"image": "mcr.microsoft.com/dotnet/core/sdk:3.0-bionic",
