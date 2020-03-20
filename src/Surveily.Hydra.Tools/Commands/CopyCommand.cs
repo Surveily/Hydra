@@ -128,13 +128,23 @@ namespace Hydra.Tools.Commands
 
         private void ApplyOverrides(TableQuerySegment<DynamicTableEntity> entities)
         {
-            for (var i = 0; i < Options.OverrideField.Count(); i++)
+            foreach (var entity in entities)
             {
-                var field = Options.OverrideField.ElementAt(i);
-                var value = Options.OverrideValue.ElementAt(i);
-
-                foreach (var entity in entities)
+                for (var i = 0; i < Options.OverrideField.Count(); i++)
                 {
+                    var field = Options.OverrideField.ElementAt(i);
+                    var value = Options.OverrideValue.ElementAt(i);
+
+                    if (Options.Strategy?.EqualsCi("Header") == true)
+                    {
+                        if (field.EqualsCi("UserId"))
+                        {
+                            var identifier = entity.Properties["Identifier"].StringValue.Split('/');
+
+                            entity.Properties["Identifier"].StringValue = string.Join('/', new[] { identifier[0], value, identifier[2] });
+                        }
+                    }
+
                     if (field.EqualsCi(nameof(DynamicTableEntity.RowKey)))
                     {
                         entity.RowKey = value;
@@ -217,7 +227,7 @@ namespace Hydra.Tools.Commands
 
                             var targetName = ApplyOverrides(sourceEntity);
                             var targetClient = target.CreateBlobClient(targetName.Split('/')[0]);
-                            var targetItem = targetClient.GetContainerReference(targetName);
+                            var targetItem = targetClient.GetContainerReference(sourceItem.Name);
                             await _policyCreate.ExecuteAsync(async () => await targetItem.CreateIfNotExistsAsync());
 
                             var targetEntity = targetItem.GetBlockBlobReference(targetName);
@@ -276,7 +286,7 @@ namespace Hydra.Tools.Commands
                 var field = Options.OverrideField.ElementAt(i);
                 var value = Options.OverrideValue.ElementAt(i);
 
-                if (field.EqualsCi("PartitionKey"))
+                if (field.EqualsCi(nameof(DynamicTableEntity.PartitionKey)))
                 {
                     return string.Join('/', new[] { value }.Union(blob.Name.Split('/').Skip(1)));
                 }

@@ -32,8 +32,11 @@ namespace Hydra.Tools.Commands
         [Option('f', "override-fields", Required = false, HelpText = "Select which fields to override.")]
         public IEnumerable<string> OverrideField { get; set; }
 
-        [Option('v', "override-values", Required = false, HelpText = "Set value for the overriden properties.")]
+        [Option('v', "override-values", Required = false, HelpText = "Set value for the overriden fields.")]
         public IEnumerable<string> OverrideValue { get; set; }
+
+        [Option("strategy", Required = false, HelpText = "Only for internal use.")]
+        public string Strategy { get; set; }
 
         public (List<CommandAccount> Sources, List<CommandAccount> Targets) GetAccounts()
         {
