@@ -215,11 +215,12 @@ namespace Hydra.Tools.Commands
                         {
                             _logger.LogInformation($"Processing {sourceEntity.GetType().Name} '{sourceEntity.Name}'.");
 
-                            var targetClient = target.CreateBlobClient(sourceEntity.Name.Split('/')[0]);
-                            var targetItem = targetClient.GetContainerReference(sourceItem.Name);
+                            var targetName = ApplyOverrides(sourceEntity);
+                            var targetClient = target.CreateBlobClient(targetName.Split('/')[0]);
+                            var targetItem = targetClient.GetContainerReference(targetName);
                             await _policyCreate.ExecuteAsync(async () => await targetItem.CreateIfNotExistsAsync());
 
-                            var targetEntity = targetItem.GetBlockBlobReference(sourceEntity.Name);
+                            var targetEntity = targetItem.GetBlockBlobReference(targetName);
 
                             if (sourceEntity.Properties.Length > 0)
                             {
@@ -266,6 +267,22 @@ namespace Hydra.Tools.Commands
                 response = await sourceClient.ListContainersSegmentedAsync(response.ContinuationToken);
             }
             while (response.ContinuationToken != null && !token.IsCancellationRequested);
+        }
+
+        private string ApplyOverrides(CloudBlockBlob blob)
+        {
+            for (var i = 0; i < Options.OverrideField.Count(); i++)
+            {
+                var field = Options.OverrideField.ElementAt(i);
+                var value = Options.OverrideValue.ElementAt(i);
+
+                if (field.EqualsCi("PartitionKey"))
+                {
+                    return string.Join('/', new[] { value }.Union(blob.Name.Split('/').Skip(1)));
+                }
+            }
+
+            return blob.Name;
         }
     }
 }
